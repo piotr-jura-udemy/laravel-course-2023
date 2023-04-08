@@ -31,4 +31,16 @@ class Book extends Model
         return $query->withAvg('reviews', 'rating')
             ->orderBy('reviews_avg_rating', 'desc');
     }
+
+    public function scopeWithRecentReviews(Builder $query, \Closure $interval): Builder
+    {
+        return $query->whereHas('reviews', function (Builder $q) use ($interval) {
+            $q->whereBetween('created_at', [$interval(now()), now()]);
+        });
+    }
+
+    public function scopeWithLastWeekReviews(Builder $query): Builder
+    {
+        return $query->withRecentReviews(fn($date) => $date->subWeek());
+    }
 }
