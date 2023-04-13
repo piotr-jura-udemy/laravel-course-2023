@@ -8,10 +8,10 @@
       <div class="book-author mb-4 text-lg font-semibold">by {{ $book->author }}</div>
       <div class="book-rating flex items-center">
         <div class="mr-2 text-sm font-medium text-slate-700">
-          {{ 4.5 }}
+          {{ number_format($book->reviews_avg_rating, 1) }}
         </div>
         <span class="book-review-count text-sm text-gray-500">
-          {{ 5 }} {{ Str::plural('review', 5) }}
+          {{ $book->reviews_count }} {{ Str::plural('review', 5) }}
         </span>
       </div>
     </div>
