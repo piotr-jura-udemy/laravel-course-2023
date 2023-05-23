@@ -13,5 +13,8 @@
         "postcss": "^8.4.23",
         "tailwindcss": "^3.3.2",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "alpinejs": "^3.12.1"
     }
 }
