@@ -14,6 +14,11 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory(300)->create();
 
+        \App\Models\User::factory()->create([
+            'name' => 'Piotr Jura',
+            'email' => 'piotr@jura.com',
+        ]);
+
         $users = \App\Models\User::all()->shuffle();
 
         for ($i = 0; $i < 20; $i++) {
@@ -31,10 +36,5 @@ class DatabaseSeeder extends Seeder
         }
 
         // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }
