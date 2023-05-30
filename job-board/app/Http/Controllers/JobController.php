@@ -49,7 +49,7 @@ class JobController extends Controller
     {
         return view(
             'job.show',
-            ['job' => $job->load('employer.jobs')]
+            ['job' => $job->load('employer.jobs')->loadCount('jobApplications')]
         );
     }
 

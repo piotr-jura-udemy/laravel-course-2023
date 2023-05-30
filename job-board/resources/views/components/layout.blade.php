@@ -18,10 +18,13 @@
       </li>
     </ul>
 
-    <ul class="flex space-x-2">
+    <ul class="flex items-center space-x-2">
       @auth
         <li>
           {{ auth()->user()->name ?? 'Anynomus' }}
+        </li>
+        <li>
+          Applications
         </li>
         <li>
           <form action="{{ route('auth.destroy') }}" method="POST">
@@ -37,6 +40,23 @@
       @endauth
     </ul>
   </nav>
+  @if (session('error'))
+    <div
+      class="my-8 rounded-md border-l-4 border-red-300 bg-red-100 p-4 text-red-700 opacity-75"
+      role="alert">
+      <p class="font-bold">Error!</p>
+      <p>{{ session('error') }}</p>
+    </div>
+  @endif
+  @if (session('success'))
+    <div
+      class="my-8 rounded-md border-l-4 border-green-300 bg-green-100 p-4 text-green-700 opacity-75"
+      role="alert">
+      <p class="font-bold">Success!</p>
+      <p>{{ session('success') }}</p>
+    </div>
+  @endif
+
   {{ $slot }}
 </body>
 
