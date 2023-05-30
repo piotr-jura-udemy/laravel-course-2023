@@ -10,6 +10,8 @@ class JobApplication extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['expected_salary', 'user_id', 'job_id'];
+
     public function job(): BelongsTo
     {
         return $this->belongsTo(Job::class);
