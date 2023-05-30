@@ -5,6 +5,18 @@
     <p class="mb-4 text-sm text-slate-500">
       {!! nl2br(e($job->description)) !!}
     </p>
+
+    @can('apply', $job)
+      <div class="flex items-center space-x-2">
+        <x-link-button :href="route('job.application.create', $job)">
+          Apply
+        </x-link-button>
+        <div class="text-sm text-slate-500">{{ $job->job_applications_count }} other
+          {{ Str::plural('applicant', $job->job_applications_count) }}</div>
+      </div>
+    @else
+      <div class="text-center text-sm font-medium text-green-500">You already applied to this job</div>
+    @endcan
   </x-job-card>
 
   <x-card class="mb-4">
