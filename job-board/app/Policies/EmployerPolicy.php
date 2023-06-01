@@ -2,25 +2,26 @@
 
 namespace App\Policies;
 
-use App\Models\Job;
+use App\Models\Employer;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 
-class JobPolicy
+class EmployerPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(?User $user): bool
+    public function viewAny(User $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?User $user, Job $job): bool
+    public function view(?User $user, Employer $employer): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -28,30 +29,29 @@ class JobPolicy
      */
     public function create(User $user): bool
     {
-        return $user->employer !== null;
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Job $job): bool
+    public function update(User $user, Employer $employer): bool
     {
-        return $job->employer->user_id === $user->id
-            && $job->jobApplications()->count() === 0;
+        return $employer->user_id === $user->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Job $job): bool
+    public function delete(User $user, Employer $employer): bool
     {
-        return $job->employer->user_id === $user->id;
+        return false;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Job $job): bool
+    public function restore(User $user, Employer $employer): bool
     {
         return false;
     }
@@ -59,13 +59,8 @@ class JobPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Job $job): bool
+    public function forceDelete(User $user, Employer $employer): bool
     {
         return false;
-    }
-
-    public function apply(User $user, Job $job): bool
-    {
-        return !$job->hasUserApplied($user);
     }
 }

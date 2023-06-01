@@ -23,7 +23,7 @@
       <div class="mb-8 flex justify-between text-sm font-medium">
         <div>
           <div class="flex items-center space-x-2">
-            <input type="checkbox" name="remember"
+            <input type="checkbox" name="remember" id="remember"
               class="rounded-sm border border-slate-400">
             <label for="remember">Remember me</label>
           </div>
