@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Job;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 
 class JobPolicy
 {
@@ -34,10 +35,17 @@ class JobPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Job $job): bool
+    public function update(User $user, Job $job)
     {
-        return $job->employer->user_id === $user->id
-            && $job->jobApplications()->count() === 0;
+        if ($job->employer->user_id !== $user->id) {
+            return false;
+        }
+
+        if ($job->jobApplications()->count() > 0) {
+            return Response::deny('Cannot change the job with applications.');
+        }
+
+        return true;
     }
 
     /**
@@ -67,5 +75,10 @@ class JobPolicy
     public function apply(User $user, Job $job): bool
     {
         return !$job->hasUserApplied($user);
+    }
+
+    public function downloadCv(User $user, Job $job)
+    {
+        return $job->employer->user_id === $user->id;
     }
 }

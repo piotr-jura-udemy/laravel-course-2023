@@ -6,6 +6,7 @@ use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\MyJobApplicationController;
 use App\Http\Controllers\MyJobController;
+use App\Http\Controllers\MyJobCvController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,9 @@ Route::middleware('auth')->group(function () {
         ->only(['index', 'destroy']);
 
     Route::resource('employer', EmployerController::class);
+    Route::middleware('employer')
+        ->resource('my-jobs', MyJobController::class);
 
-    Route::middleware('employer')->resource('my-jobs', MyJobController::class);
+    Route::resource('job-application-cvs', MyJobCvController::class)->only('show')
+        ->parameters(['job-application-cvs' => 'job_application']);
 });
