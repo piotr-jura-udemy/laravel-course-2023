@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Poll;
 use Livewire\Component;
@@ -53,6 +53,6 @@ class CreatePoll extends Component
                     ->all()
             );
         $this->reset(['title', 'options']);
-        $this->emit('pollCreated');
+        $this->dispatch('pollCreated');
     }
 }

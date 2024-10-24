@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Option;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Polls extends Component
 {
-    protected $listeners = [
-        'pollCreated' => 'render'
-    ];
-
+    // protected $listeners = [
+    //     'pollCreated' => 'render'
+    // ];
+    #[On('pollCreated')]
     public function render()
     {
         $polls = \App\Models\Poll::with('options.votes')
