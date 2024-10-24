@@ -49,7 +49,7 @@ class Book extends Model
 
     public function scopeMinReviews(Builder $query, int $minReviews): Builder|QueryBuilder
     {
-        return $query->having('reviews_count', '>=', $minReviews);
+        return $query->where('reviews_count', '>=', $minReviews);
     }
 
     private function dateRangeFilter(Builder $query, $from = null, $to = null)
