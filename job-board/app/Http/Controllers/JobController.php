@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class JobController extends Controller
 {
@@ -12,7 +12,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Job::class);
+        Gate::authorize('viewAny', Job::class);
         $filters = request()->only(
             'search',
             'min_salary',
@@ -32,7 +32,7 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        $this->authorize('view', $job);
+        Gate::authorize('view', $job);
         return view(
             'job.show',
             ['job' => $job->load('employer.jobs')]

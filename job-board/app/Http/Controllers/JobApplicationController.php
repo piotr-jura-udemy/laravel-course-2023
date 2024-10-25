@@ -4,18 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class JobApplicationController extends Controller
 {
     public function create(Job $job)
     {
-        $this->authorize('apply', $job);
+        Gate::authorize('apply', $job);
         return view('job_application.create', ['job' => $job]);
     }
 
     public function store(Job $job, Request $request)
     {
-        $this->authorize('apply', $job);
+        Gate::authorize('apply', $job);
 
         $validatedData = $request->validate([
             'expected_salary' => 'required|min:1|max:1000000',
@@ -23,7 +24,7 @@ class JobApplicationController extends Controller
         ]);
 
         $file = $request->file('cv');
-        $path = $file->store('cvs', 'private');
+        $path = $file->store('cvs', 'local');
 
         $job->jobApplications()->create([
             'user_id' => $request->user()->id,

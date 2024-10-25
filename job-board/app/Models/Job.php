@@ -15,6 +15,7 @@ class Job extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'offered_jobs';
     protected $fillable = [
         'title',
         'location',
